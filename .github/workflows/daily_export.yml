@@ -1,0 +1,34 @@
+name: Booking Engine Daily Export
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs at 08:00 UTC daily
+  workflow_dispatch:       # Allows manual trigger from GitHub
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install selenium webdriver-manager google-auth google-auth-oauthlib \
+          google-auth-httplib2 google-api-python-client pytz
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run export script
+        env:
+          BOOKING_ENGINE_EMAIL_ADDRESS: ${{ secrets.BOOKING_ENGINE_EMAIL_ADDRESS }}
+          BOOKING_ENGINE_PASSWORD: ${{ secrets.BOOKING_ENGINE_PASSWORD }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: python booking_engine_export.py
