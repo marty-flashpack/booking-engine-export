@@ -83,7 +83,7 @@ def download_csv():
 
         # Set start date
         start_date = wait.until(EC.presence_of_element_located((By.NAME, "from_date")))
-        driver.execute_script("arguments[0].value = '2026-01-01';", start_date)
+        driver.execute_script("arguments[0].value = '2025-01-01';", start_date)
         driver.execute_script("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", start_date)
         driver.execute_script("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", start_date)
         time.sleep(1)
