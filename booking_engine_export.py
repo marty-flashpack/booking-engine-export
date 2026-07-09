@@ -176,7 +176,7 @@ def update_sheet(csv_path, service):
 
     uk_tz = pytz.timezone("Europe/London")
     now_uk = datetime.now(uk_tz)
-    timestamp = now_uk.strftime("Last updated on %d/%m/%Y at %H:%M. The data includes all departures between 1st Jan 2025 and 31st Dec 2027.")
+    timestamp = now_uk.strftime("Last updated on %d/%m/%Y at %H:%M.")
 
     print(f"Updating timestamp: {timestamp}")
     sheets.values().update(
